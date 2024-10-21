@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import apiURL from '../apiUrl';
+import apiURL from '../../utils/apiUrl';
 import useAPIGetURL from './useAPIGetURL';
 
 function useProducts() {

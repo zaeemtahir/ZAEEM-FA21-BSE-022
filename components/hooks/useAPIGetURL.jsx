@@ -13,7 +13,7 @@ const useAPIGetURL = (url) => {
       // Try to get data from AsyncStorage first
       const storedData = await AsyncStorage.getItem(url);
       if (storedData !== null) {
-        console.log("data is fetched from AsyncStorage")
+        console.log("Data is fetched from AsyncStorage")
         setData(JSON.parse(storedData));
       }
 
@@ -21,7 +21,7 @@ const useAPIGetURL = (url) => {
       const response = await fetch(url);
       const json = await response.json();
 
-      console.log("this is the response from the api");
+      console.log("This is the response from the API");
       console.log(json);
 
       // Update state and store in AsyncStorage

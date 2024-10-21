@@ -1,26 +1,28 @@
 import React from 'react';
 import { FlatList, View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import uri from '../utils/imageUri'
 
 function ProductList({ products, isLoading }) {
-    const uri = "https://www.allrecipes.com/thmb/aizVUz1JlBwSPI_hrH4Wu1XFXSE=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/21667-easy-iced-coffee-ddmfs-4x3-0093-7becf3932bd64ed7b594d46c02d0889f.jpg"
   const renderProductItem = ({ item, index }) => (
-    <Pressable style={[
-      styles.productItem,
+    <View style={[
+      styles.productItemWrapper,
       index % 2 === 1 && { marginTop: 20 }
     ]}>
-      <Image source={{ uri: uri }} style={styles.productImage} />
-      <View style={styles.productInfo}>
-        <Text style={styles.productName}>{item.name}</Text>
-        <Text style={styles.productOrigin}>{item.origin}</Text>
-        <Text style={styles.productPrice}>
-          ${item.price ? item.price.toFixed(2) : 'N/A'}
-        </Text>
-      </View>
-      <Pressable style={styles.addButton}>
-        <Ionicons name="add" size={24} color="white" />
+      <Pressable style={styles.productItem}>
+        <Image source={{ uri: uri }} style={styles.productImage} />
+        <View style={styles.productInfo}>
+          <Text style={styles.productName}>{item.name}</Text>
+          <Text style={styles.productOrigin}>{item.category}</Text>
+          <Text style={styles.productPrice}>
+            ${'N/A'}
+          </Text>
+        </View>
+        <Pressable style={styles.addButton}>
+          <Ionicons name="add" size={24} color="white" />
+        </Pressable>
       </Pressable>
-    </Pressable>
+    </View>
   );
 
   if (isLoading) {
@@ -49,12 +51,15 @@ const styles = StyleSheet.create({
   productRow: {
     justifyContent: 'space-between',
   },
-  productItem: {
+  productItemWrapper: {
     width: '48%',
+    marginBottom: 15,
+  },
+  productItem: {
+    flex: 1,
     backgroundColor: 'white',
     borderRadius: 15,
     padding: 10,
-    marginBottom: 15,
   },
   productImage: {
     width: '100%',
