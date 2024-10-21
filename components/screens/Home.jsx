@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, Text, FlatList, Pressable, Image, StyleSheet, TextInput } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'; // Make sure to install expo vector icons
 import apiURL from '../apiUrl'
@@ -5,7 +6,7 @@ import useAPIGetURL from '../useAPIGetURL'
 
 function Home() {
   const url = apiURL.baseURL + apiURL.productslist;
-  const data = useAPIGetURL(url);
+  const data = useAPIGetURL(url) || []; // Provide a default empty array
 
   const renderCategoryItem = ({ item }) => (
     <Pressable style={styles.categoryItem}>
@@ -62,6 +63,10 @@ function Home() {
         keyExtractor={item => item.id}
         numColumns={2}
         contentContainerStyle={styles.productList}
+        columnWrapperStyle={styles.productRow}
+        ListEmptyComponent={() => (
+          <Text style={styles.emptyText}>No products available offline. Please connect to the internet and try again.</Text>
+        )}
       />
     </View>
   );
@@ -146,6 +151,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     borderRadius: 15,
     padding: 5,
+  },
+  emptyText: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontSize: 16,
+    color: 'gray',
+  },
+  productRow: {
+    justifyContent: 'space-between',
   },
 });
 
